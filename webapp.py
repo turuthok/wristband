@@ -21,6 +21,10 @@ def generate_rfid():
 def root():
   return render_template("index.html")
 
+@app.route('/scan-in')
+def scan_in():
+  return render_template("scan-in.html")
+
 @app.route('/api/ninjas')
 def get_ninjas():
   url = 'https://dojo.code.ninja/api/reports/{}/activesubscriptions'.format(location_slug)
@@ -101,6 +105,8 @@ def action_ninja_login(guid):
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
   parser.add_argument("--chromedriver", dest="chromedriver", help="Path to chromedriver", default="/usr/local/bin/chromedriver")
+  parser.add_argument("--port", dest="port", help="Port to listen to", default=5000)
+
   args = parser.parse_args()
 
   location_slug = input("Location Slug: ").strip()
@@ -113,5 +119,5 @@ if __name__ == "__main__":
   dojo = Dojo(location_slug, email, password, args.chromedriver)
   dojo.login()
 
-  app.run()
+  app.run(port=args.port, debug=True)
 

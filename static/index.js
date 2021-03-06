@@ -7,6 +7,8 @@ const vm = new Vue({
     delimiters: ['[[', ']]'],
     data() {
         return {
+            now: new Date(),
+            minutesCount: 0,
             ninjas: [],
             loginInfo: {},
             rfidInput: '',
@@ -24,6 +26,14 @@ const vm = new Vue({
         }
     },
     methods: {
+        updateTime() {
+            this.now = new Date();
+            this.minutesCount++;
+            if (this.minutesCount == 5) {
+                this.minutesCount = 0;
+                this.getNinjas();
+            }
+        },
         normalizeRfid(value) {
             if (value) {
                 value = value.toLowerCase();
@@ -149,15 +159,20 @@ const vm = new Vue({
                     this.errorModal(`Cannot find ninja with RFID ${rfid}.`);
                 })
         },
+        getNinjas() {
+            const url = "/api/ninjas";
+            axios.get(url)
+                .then(res => {
+                    this.ninjas = res.data;
+                    console.log(this.ninjas);
+                })
+                .catch(error => {
+                });
+        },
     },
     mounted() {
-        const url = "/api/ninjas";
-        axios.get(url)
-            .then(res => {
-                this.ninjas = res.data;
-                console.log(this.ninjas);
-            })
-            .catch(error => {
-            });
+        setInterval(this.updateTime, 60000);
+        this.updateTime();
+        this.getNinjas();
     }
 });
