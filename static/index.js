@@ -104,7 +104,7 @@ const vm = new Vue({
         registerWristband(ninja, rfid) {
             this.showWristbandModal = false;
 
-            const url = `/api/ninjas/${ninja.studentGuid}/wristband`;
+            const url = `/api/ninjas/${ninja.studentGuid}/registerWristband`;
             let data = { isVirtual: rfid === 'virtual' };
             if (data.isVirtual) {
                 rfid = '';
@@ -130,7 +130,7 @@ const vm = new Vue({
         checkWristband(rfid) {
             this.showScanInModal = false;
 
-            const url = `/api/ninjas?rfid=${rfid}`;
+            const url = `/api/wristbands?rfid=${rfid}`;
             axios.get(url)
                 .then((res) => {
                     console.log(res.data);
