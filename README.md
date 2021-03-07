@@ -81,6 +81,8 @@ If the program detects an error, then we're potentially dealing with a dud.  The
 ### Scan Wristband ###
 Although by now we can register a dud wristband by means of mapping it to a virtual wristband ID, the official Ninja Wristband Scan In will not be able to understand your dud wristband.
 
-For that, we have a simplistic **Scan Wristband** button at the top of the web app.  Click it, and place the cursor in the Wristband RFID text box and scan the wristband.  And click **Check Wristband**.
+For that, we have a simplistic **Scan Wristband** button at the top of the web app.  Click it, and the familiar pulsating ninja head should appear where you can then scan the wristband.
+
+![](static/images/pulsing-badge.svg)
 
 If the wristband RFID is recognized, then it should proceed with the same scan in option for the matched ninja.
