@@ -10,19 +10,13 @@ const vm = new Vue({
             now: new Date(),
             minutesCount: 0,
             ninjas: [],
-            loginInfo: {},
+            loginInfo: null,
             rfidInput: '',
             showLoginModal: false,
-            showWristbandModal: false,
             showSuccessModal: false,
             showErrorModal: false,
             message: ''
         };
-    },
-    computed: {
-        normalizedRfid() {
-            return this.normalizeRfid(this.rfidInput);
-        }
     },
     methods: {
         updateTime() {
@@ -47,6 +41,18 @@ const vm = new Vue({
             }
             return '';
         },
+        keyHandler(event) {
+            if (event.key == ';') {
+                this.rfidInput = '';
+            } else if ("0123456789abcdef".indexOf(event.key) >= 0) {
+                this.rfidInput += event.key;
+            } else if (event.key == '?') {
+                this.rfidInput = this.normalizeRfid(this.rfidInput);
+                console.log(`Scanned RFID: ${this.rfidInput}`);
+                this.checkWristband(this.rfidInput);
+                this.rfidInput = '';
+            }
+        },
         successModal(message) {
             this.message = message;
             this.showSuccessModal = true;
@@ -70,22 +76,6 @@ const vm = new Vue({
                     this.errorModal('Cannot retrieve ninja detail.')
                 })
         },
-        wristbandButtonClick(ninja) {
-            this.loginInfo = null;
-            this.rfidInput = '';
-            const url = `/api/ninjas/${ninja.studentGuid}`;
-            axios.get(url)
-                .then((res) => {
-                    console.log(res.data);
-                    ninja.hasActiveWristband = res.data.hasActiveWristband;
-                    this.loginInfo = ninja;
-                    this.showWristbandModal = true;
-                })
-                .catch((error) => {
-                    this.showWristbandModal = false;
-                    this.errorModal('Cannot retrieve ninja detail.')
-                })
-        },
         login(ninja, sessionLength) {
             this.showLoginModal = false;
             const url = `/api/ninjas/${ninja.studentGuid}/login`;
@@ -106,35 +96,7 @@ const vm = new Vue({
                     this.errorModal("Login failed!");
                 })
         },
-        registerWristband(ninja, rfid) {
-            this.showWristbandModal = false;
-
-            const url = `/api/ninjas/${ninja.studentGuid}/registerWristband`;
-            let data = { isVirtual: rfid === 'virtual' };
-            if (data.isVirtual) {
-                rfid = '';
-                for (let i = 0; i < 6; i++) rfid += "0123456789abcdef".charAt(Math.floor(Math.random() * 16));
-                rfid += "04";
-                console.log("Using a virtual rfid: " + rfid);
-                data.rfid = rfid;
-            } else {
-                data.rfid = this.normalizeRfid(rfid);
-            }
-            axios.post(url, data)
-                .then((res) => {
-                    if (res.data.successful) {
-                        this.successModal(`Wristband with RFID ${data.rfid} is successfully registered to ${ninja.name}.`);
-                    } else {
-                        this.errorModal(res.data.message);
-                    }
-                })
-                .catch((error) => {
-                    this.errorModal("Error registering wristband");
-                });
-        },
         checkWristband(rfid) {
-            this.showScanInModal = false;
-
             const url = `/api/wristbands?rfid=${rfid}`;
             axios.get(url)
                 .then((res) => {
@@ -169,5 +131,8 @@ const vm = new Vue({
         setInterval(this.updateTime, 60000);
         this.updateTime();
         this.getNinjas();
+    },
+    created() {
+        window.addEventListener("keydown", this.keyHandler);
     }
 });

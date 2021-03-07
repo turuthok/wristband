@@ -61,3 +61,11 @@
   background-color: #051b36;
   transition: background-color .2s ease-in-out
 }
+
+.centered {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
