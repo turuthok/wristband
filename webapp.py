@@ -104,7 +104,6 @@ def action_ninja_login(guid):
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
-  parser.add_argument("--chromedriver", dest="chromedriver", help="Path to chromedriver", default="/usr/local/bin/chromedriver")
   parser.add_argument("--port", dest="port", help="Port to listen to", default=5000)
 
   args = parser.parse_args()
@@ -116,8 +115,8 @@ if __name__ == "__main__":
 
   wristband_mapping = WristbandMapping(map_file)
 
-  dojo = Dojo(location_slug, email, password, args.chromedriver)
+  dojo = Dojo(location_slug, email, password)
   dojo.login()
 
-  app.run(port=args.port, debug=True)
+  app.run(port=args.port)
 

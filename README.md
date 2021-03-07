@@ -4,7 +4,6 @@ This is a Python-based webapp for users to access a subset of Dojo operations, p
 
 ### Requirements to Run the Web App ###
 * Python 3.x
-* ChromeDriver (download here: http://chromedriver.chromium.org/downloads).  **Important:** Make sure you download the version which matches your Google Chrome version.
 
 ### First Time Setup ###
 After cloning or downloading the zip file, go to this project folder and create a Python virtual environment:
@@ -25,15 +24,10 @@ For the first time, we should install all required dependencies using this comma
 That should do it.  The next time around you want to run the webapp.py, there's no need to do all these installs, just enter the virtual environment prior to running the web app using the `source venv/bin/activate` command.
 
 ### Running the Web Application ###
-Check and make sure where the `chromedriver` is installed, make note of the complete path.
-
 From the command prompt, simply run:
 
     (venv) $ python webapp.py
 
-The above will run the web application and assume that `chromedriver` path is: `/usr/local/bin/chromedriver`, this will likely not the same as yours.  You can override it by doing this:
-
-    (venv) $ python webapp.py --chromedriver /path/to/your/chromedriver/executable
 
 
 The app will then ask 4 questions:
@@ -90,8 +84,3 @@ Although by now we can register a dud wristband by means of mapping it to a virt
 For that, we have a simplistic **Scan Wristband** button at the top of the web app.  Click it, and place the cursor in the Wristband RFID text box and scan the wristband.  And click **Check Wristband**.
 
 If the wristband RFID is recognized, then it should proceed with the same scan in option for the matched ninja.
-
-### Potential Pain Points regarding Chrome Driver ###
-From time to time, Google Chrome is automatically downloaded and upgraded so the newer browser version can at some point outlast the `chromedriver` executable.
-
-**TODO:**  There's an automatic installer to eliminate this pain point but I just don't have a chance to do it yet.  Check https://pypi.org/project/chromedriver-autoinstaller/ if someone wants to implement it.

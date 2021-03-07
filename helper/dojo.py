@@ -1,5 +1,6 @@
 import json
 import requests
+import chromedriver_autoinstaller
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
@@ -10,11 +11,10 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 
 class Dojo:
-  def __init__(self, location_slug, email, password, executable_path):
+  def __init__(self, location_slug, email, password):
     self.location_slug = location_slug
     self.email = email
     self.password = password
-    self.executable_path = executable_path
     self.cookies = {}
 
   def get_cookies_for_dojo_access(self, cookies):
@@ -70,7 +70,10 @@ class Dojo:
     options = ChromeOptions()
     options.add_argument("--headless")
     options.add_argument("--incognito")
-    driver = webdriver.Chrome(options=options, executable_path=self.executable_path)
+
+    chromedriver_autoinstaller.install()
+
+    driver = webdriver.Chrome(options=options)
     driver.get("https://dojo.code.ninja/employees/{}".format(self.location_slug))
 
     steps = [
