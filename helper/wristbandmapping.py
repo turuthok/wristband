@@ -1,5 +1,5 @@
 import json
-from os import path
+from os import path, stat
 
 class WristbandMapping:
     wristband_map = {}
@@ -10,8 +10,9 @@ class WristbandMapping:
 
     def load(self):
         if path.exists(self.map_file):
-            with open(self.map_file, "r") as f:
-                self.wristband_map = json.load(f)
+            if stat(self.map_file).st_size > 0:
+                with open(self.map_file, "r") as f:
+                    self.wristband_map = json.load(f)
 
     def save(self):
         with open(self.map_file, "w") as f:
