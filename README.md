@@ -29,6 +29,7 @@ From the command prompt, simply run:
     (venv) $ python webapp.py
 
 
+You may either update the `webapp.config.ini` file with the required values or input them on the command line.
 
 The app will then ask 4 questions:
 * **Location Slug**, this is simply your Code Ninjas location id.  Example: `cn-ca-rocklin` for Rocklin, CA.
