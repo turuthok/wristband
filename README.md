@@ -31,6 +31,14 @@ From the command prompt, simply run:
 
 You may either update the `webapp.config.ini` file with the required values or input them on the command line.
 
+The webapp config options are included by default. Any fields not filled out will be requested when the webapp is started.
+
+You may also use the following CLI options:
+- `--port / -p`: the port the webapp will be available on
+- `--location / -l`: the location slug, described below
+- `--cn-email / -e`: the email address you wish to use
+- `--wristband-mapping / -M`: the mapping file, described below
+
 The app will then ask 4 questions:
 * **Location Slug**, this is simply your Code Ninjas location id.  Example: `cn-ca-rocklin` for Rocklin, CA.
 * **Code Ninjas Account Email Address**, this will be the Microsoft Exchange email address.

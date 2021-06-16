@@ -117,7 +117,7 @@ if __name__ == "__main__":
 
     location_slug = args.location or config['location'] or input('Location Slug: ').strip()
     email = args.cn_email or config['email'] or input('Code Ninjas Account Email Address: ').strip()
-    password = config['password'] or input('Password: ')
+    password = config['password'] or getpass.getpass('Password: ')
     wristband_mapping_file = args.wristband_mapping or config['wristbandMappingFile'] or input('Full path to wristband mapping JSON file: ').strip()
 
     wristband_mapping = WristbandMapping(wristband_mapping_file)
