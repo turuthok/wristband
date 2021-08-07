@@ -15,7 +15,7 @@ location_slug, email, password = None, None, None
 
 def generate_rfid():
     random.seed()
-    return ''.join(map(lambda x: "0123456789abcdef"[random.randrange(0, 16)], range(6))) + '04'
+    return ''.join(map(lambda x: "0123456789abcdef"[random.randrange(0, 16)], range(14)))
 
 @app.route('/')
 def root():

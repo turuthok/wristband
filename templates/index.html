@@ -88,7 +88,7 @@
               <div class="form-group">
                 <label for="rfidInputBox">Wristband RFID</label>
                 <input class="form-control" id="rfidInputBox" placeholder="Place cursor here and scan wristband ..." v-model="rfidInput">
-                <small class="form-text text-muted">Either scan the wristband or enter 8-digit hexadecimal RFID value</small>
+                <small class="form-text text-muted">Either scan the wristband or enter 14-digit or 8-digit hexadecimal RFID value</small>
               </div>
               <button class="mt-3 btn btn-primary" @click="registerWristband(loginInfo, normalizedRfid)" :disabled="!normalizedRfid">Register Physical Wristband[[ " " + normalizedRfid ]]</button>
             </div>

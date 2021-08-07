@@ -42,7 +42,7 @@ const vm = new Vue({
                         res += value[i];
                     }
                 }
-                if (res.length != 8) return '';
+                if (res.length != 8 && res.length != 14) return '';
                 return res;
             }
             return '';
